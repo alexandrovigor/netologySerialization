@@ -1,17 +1,16 @@
 import java.io.*;
 
-import static java.lang.Integer.SIZE;
+import static java.lang.Long.SIZE;
 
 public class Basket {
     protected static int[] prices;
     protected static String[] products;
     protected static int sumProducts;
-    protected static int[] countBasket= new int[SIZE];
+    protected static int[] countBasket = new int[SIZE];
 
     Basket(String[] products, int[] prices) {
         Basket.products = products;
         Basket.prices = prices;
-
     }
 
     static void loadFromTxtFile(File file) throws IOException {
@@ -26,10 +25,9 @@ public class Basket {
         new Basket(products, prices);
 
     }
-    void addToCart(int productNum, int amount) {
 
-        int currentPrice = prices[productNum] * amount;
-        sumProducts += currentPrice;
+    void addToCart(int productNum, int amount) {
+        sumProducts += prices[productNum] * amount;
         countBasket[productNum] += amount;
     }
 
@@ -39,11 +37,10 @@ public class Basket {
 
         for (int j = 0; j < countBasket.length; j++) {
             if (countBasket[j] != 0) {
-                System.out.println(products[j] + " " + countBasket[j] + " " + "шт " + " " + prices[j] + "руб/шт "
-                        + countBasket[j] * prices[j] + " руб");
+                System.out.println(products[j] + " " + countBasket[j] + " " + "шт " + " " + prices[j] + "руб/шт " + countBasket[j] * prices[j] + " руб");
             }
         }
-        System.out.println("Всего будет потрачено " + sumProducts + " руб");
+        System.out.println("Всего потрачено " + sumProducts + " руб");
     }
     public void saveTxt(File file) throws IOException {
         try (PrintWriter quantity = new PrintWriter(file)) {
@@ -55,4 +52,5 @@ public class Basket {
             quantity.print("\n");
         }
     }
+
 }
