@@ -3,17 +3,24 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         String[] products = {"Хлеб  ", "Яблоки", "Молоко", "Пиво  ", "Яйцо  "};
         int[] prices = {100, 200, 300, 250, 45};
 
         Basket basket = new Basket(products, prices);
 
-        File file = new File("basket.txt");
+        File file = new File("basket.bin");
         if (file.exists()) {
-            Basket.loadFromTxtFile(file);
+            Basket.loadFromBinFile(file);
             basket.printCart();
         }
+       // File file = new File("basket.txt");
+       // if (file.exists()) {
+       //     Basket.loadFromTxtFile(file);
+        //    basket.printCart();
+       // }
         System.out.println("Список возможных товаров для покупки");
         for (int i = 0; i < products.length; i++) {
             System.out.println((i + 1) + "." + products[i] + " " + prices[i] + "руб/шт");
@@ -47,13 +54,15 @@ public class Main {
                         int sum = prices[productNumber] * countBasket[productNumber];
                         sumProducts += sum;
                         basket.addToCart(productNumber, productCount);
-                    } catch (ArrayIndexOutOfBoundsException e) {
+
+                } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Товара под таким номером не существует");
                         continue;
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Вы ввели текст " + "'" + input + "'" + " ,а нужно цифровые значения");
                 }
+
                 continue;
             }
             System.out.println("Ваша корзина:");
@@ -65,7 +74,7 @@ public class Main {
             System.out.println("Итого " + sumProducts + " руб");
             break;
         }
-        basket.saveTxt(file);
+        basket.saveBin(file);
         basket.printCart();
     }
 }
