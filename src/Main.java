@@ -1,25 +1,20 @@
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         String[] products = {"Хлеб", "Яблоки", "Молоко", "Пиво", "Яйцо"};
         int[] prices = {100, 200, 300, 250, 45};
 
-        Basket basket = new Basket(products, prices);
+        Basket basket1 = new Basket(products, prices);
 
-        File file = new File("basket.txt");
+        File file = new File("basket.bin");
 
         if (file.exists()) {
-            // На случай,если сотрут данные из файла
-            //          if (file.length() == 0) {
-            //                      file.delete();
-            //         }
-            basket = Basket.loadFromTxtFile(file);
-            basket.printCart();
+            basket1 = Basket.loadFromBinFile(file);
+            basket1.printCart();
         } else {
             System.out.println("Пока корзина пустая");
         }
@@ -55,7 +50,7 @@ public class Main {
                         countBasket[productNumber] = productCount;
                         int sum = prices[productNumber] * countBasket[productNumber];
                         sumProducts += sum;
-                        basket.addToCart(productNumber, productCount);
+                        basket1.addToCart(productNumber, productCount);
                     } catch (ArrayIndexOutOfBoundsException e) {
                         System.out.println("Товара под таким номером не существует");
                         continue;
@@ -74,8 +69,7 @@ public class Main {
             System.out.println("Итого " + sumProducts + " руб");
             break;
         }
-        basket.saveTxt(file);
-        basket.printCart();
-
+        basket1.saveBin(file);
+        basket1.printCart();
     }
 }
