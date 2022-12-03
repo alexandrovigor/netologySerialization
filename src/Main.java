@@ -6,15 +6,22 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        String[] products = {"Хлеб  ", "Яблоки", "Молоко", "Пиво  ", "Яйцо  "};
+        String[] products = {"Хлеб", "Яблоки", "Молоко", "Пиво", "Яйцо"};
         int[] prices = {100, 200, 300, 250, 45};
 
         Basket basket = new Basket(products, prices);
 
         File file = new File("basket.txt");
+
         if (file.exists()) {
-            Basket.loadFromTxtFile(file);
+            // На случай,если сотрут данные из файла
+            //          if (file.length() == 0) {
+            //                      file.delete();
+            //         }
+            basket = Basket.loadFromTxtFile(file);
             basket.printCart();
+        } else {
+            System.out.println("Пока корзина пустая");
         }
         System.out.println("Список возможных товаров для покупки");
         for (int i = 0; i < products.length; i++) {
@@ -58,7 +65,7 @@ public class Main {
                 }
                 continue;
             }
-            System.out.println("Ваша корзина:");
+            System.out.println("Ваша корзина в эту сессию покупок:");
             for (int x = 0; x < products.length; x++) {
                 if ((countBasket[x]) != 0) {
                     System.out.println(products[x] + " " + countBasketAnyProducts[x] + " шт," + prices[x] + " руб/шт," + prices[x] * countBasketAnyProducts[x] + "");

@@ -1,6 +1,6 @@
 public class IncorrectInputException extends NumberFormatException {
 
     public IncorrectInputException(String text) {
-        super("Вы ввели текст " + "'" + text + "'" + " ,а нужно цифровые значения");
+        super("Р’С‹ РІРІРµР»Рё С‚РµРєСЃС‚ " + "'" + text + "'" + " ,Р° РЅСѓР¶РЅРѕ С†РёС„СЂРѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ");
     }
 }
